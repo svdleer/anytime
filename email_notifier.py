@@ -74,7 +74,7 @@ Controleer de Sportivity app om te bevestigen of wijzigingen aan te brengen.
 <body style="margin: 0; padding: 0; background-color: #f5f5f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
     <div style="max-width: 600px; margin: 0 auto; background-color: white;">
         <!-- Header -->
-        <div style="background: linear-gradient(135deg, #f7AA0f 0%, #ff8c00 100%); padding: 40px 20px; text-align: center;">
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px; text-align: center;">
             <div style="background-color: rgba(255,255,255,0.2); border-radius: 50%; width: 80px; height: 80px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;">
                 <span style="font-size: 48px;">🏋️</span>
             </div>
@@ -113,8 +113,8 @@ Controleer de Sportivity app om te bevestigen of wijzigingen aan te brengen.
             </div>
             
             <!-- Info Box -->
-            <div style="background-color: #fff3cd; border-left: 4px solid #f7AA0f; padding: 15px 20px; border-radius: 8px; margin-bottom: 25px;">
-                <p style="margin: 0; color: #856404; font-size: 14px; line-height: 1.6;">
+            <div style="background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%); border-left: 4px solid #667eea; padding: 15px 20px; border-radius: 8px; margin-bottom: 25px;">
+                <p style="margin: 0; color: #5b21b6; font-size: 14px; line-height: 1.6;">
                     <strong>🤖 Automatisch gereserveerd</strong><br>
                     Deze boeking is gemaakt door <em>uw zwaar illegale Sportivity reserverings assistente Hetty</em>.
                 </p>
@@ -122,7 +122,7 @@ Controleer de Sportivity app om te bevestigen of wijzigingen aan te brengen.
             
             <!-- Action Button -->
             <div style="text-align: center; margin: 30px 0;">
-                <a href="https://www.sportivity.com" style="display: inline-block; background: linear-gradient(135deg, #f7AA0f 0%, #ff8c00 100%); color: white; text-decoration: none; padding: 14px 32px; border-radius: 25px; font-weight: 600; font-size: 15px; box-shadow: 0 4px 12px rgba(247,170,15,0.3);">
+                <a href="https://www.sportivity.com" style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; padding: 14px 32px; border-radius: 25px; font-weight: 600; font-size: 15px; box-shadow: 0 4px 15px rgba(102,126,234,0.4);">
                     Open Sportivity App
                 </a>
             </div>
