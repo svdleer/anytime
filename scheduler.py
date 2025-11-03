@@ -43,18 +43,12 @@ class Lesson:
     
     def is_bookable_now(self) -> bool:
         """Check if this lesson is in the booking window."""
-        try:
-            now = datetime.now(timezone.utc)
-        except Exception:
-            now = datetime.now()
+        now = datetime.now()  # Use naive datetime to match lesson times
         return now >= self.target_booking_time and now < self.start_time
     
     def is_in_active_booking_window(self) -> bool:
         """Check if we're in the aggressive booking window (48h to 47h before lesson)."""
-        try:
-            now = datetime.now(timezone.utc)
-        except Exception:
-            now = datetime.now()
+        now = datetime.now()  # Use naive datetime to match lesson times
         # Active window: from 5 min before 48h until 47h before lesson
         return now >= self.target_booking_time and now <= self.booking_window_end
     
@@ -284,7 +278,7 @@ class BookingScheduler:
                 'retry_hours': []
             }
         
-        now = datetime.now(timezone.utc)
+        now = datetime.now()  # Use naive datetime
         retry_info = self.full_lesson_retries[lesson.id]
         retry_info['attempts'] += 1
         retry_info['last_attempt'] = now
@@ -301,7 +295,7 @@ class BookingScheduler:
             return True  # First attempt
         
         retry_info = self.full_lesson_retries[lesson.id]
-        now = datetime.now(timezone.utc)
+        now = datetime.now()  # Use naive datetime
         current_hour = now.hour
         
         # Check if we've hit max retries for the day
@@ -404,10 +398,7 @@ class BookingScheduler:
                 # Show next booking window
                 next_window = self.get_next_booking_window()
                 if next_window:
-                    try:
-                        now = datetime.now(timezone.utc)
-                    except:
-                        now = datetime.now()
+                    now = datetime.now()  # Use naive datetime
                     time_until = next_window - now
                     logger.info(f"Next booking window in: {time_until}")
                 
