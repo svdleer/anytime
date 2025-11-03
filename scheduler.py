@@ -42,14 +42,15 @@ class Lesson:
         return self.start_time - timedelta(hours=Config.BOOKING_WINDOW_END_HOURS)
     
     def is_bookable_now(self) -> bool:
-        """Check if this lesson is in the booking window."""
+        """Check if this lesson is in the booking window (anytime from 48h before until lesson starts)."""
         now = datetime.now()  # Use naive datetime to match lesson times
-        return now >= self.target_booking_time and now < self.start_time
+        return now >= self.booking_opens_at and now < self.start_time
     
     def is_in_active_booking_window(self) -> bool:
-        """Check if we're in the aggressive booking window (48h to 47h before lesson)."""
+        """Check if we're in the aggressive booking window (first hour: 48h to 47h before lesson)."""
         now = datetime.now()  # Use naive datetime to match lesson times
-        # Active window: from 5 min before 48h until 47h before lesson
+        # Aggressive window: from 5 min before 48h until 47h before lesson (1 hour window)
+        # This is when we check every 5 minutes to grab spots quickly
         return now >= self.target_booking_time and now <= self.booking_window_end
     
     def should_attempt_booking(self) -> bool:
@@ -187,14 +188,11 @@ class BookingScheduler:
         
         bookable_lessons = []
         for lesson in all_lessons:
-            # In active booking window (48h-47h): try every 5 minutes
-            if lesson.is_in_active_booking_window():
-                bookable_lessons.append(lesson)
-            # Outside window but lesson was full: retry at specific hours
-            elif lesson.id in self.full_lesson_retries and self.should_retry_full_lesson(lesson):
+            # Bookable if window is open (anytime from 48h before until lesson starts)
+            if lesson.is_bookable_now():
                 bookable_lessons.append(lesson)
         
-        logger.info(f"Found {len(bookable_lessons)} lessons ready for booking (active window + retries)")
+        logger.info(f"Found {len(bookable_lessons)} lessons ready for booking")
         return bookable_lessons
     
     def book_lesson(self, lesson: Lesson) -> bool:
