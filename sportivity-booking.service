@@ -1,0 +1,22 @@
+[Unit]
+Description=Sportivity Auto-Booking Service (Hetty)
+After=network.target
+
+[Service]
+Type=simple
+User=sportivity
+WorkingDirectory=/home/sportivity/anytime
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+ExecStart=/usr/bin/python3 /home/sportivity/anytime/main.py
+Restart=always
+RestartSec=10
+StandardOutput=append:/home/sportivity/anytime/anytime_booking.log
+StandardError=append:/home/sportivity/anytime/anytime_booking.log
+
+# Restart on failure
+RestartSec=10
+StartLimitInterval=200
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

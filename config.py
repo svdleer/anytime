@@ -64,7 +64,7 @@ class Config:
     
     # Schedule checking
     CHECK_INTERVAL_MINUTES = 15  # How often to check for new lessons
-    SCHEDULE_LOOKAHEAD_DAYS = 9  # How many days ahead to check (7 days + 48h buffer)
+    SCHEDULE_LOOKAHEAD_DAYS = 7  # How many days ahead to check
     
     # User Agent Configuration
     IOS_VERSION = '18.0'  # Darwin 24.6.0 = iOS 18.0

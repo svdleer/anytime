@@ -42,20 +42,13 @@ echo ""
 echo "✅ All tests passed!"
 echo ""
 
-# Check DRY_RUN status
+# Check DRY_RUN status and display info (non-interactive)
 if grep -q "DRY_RUN=false" .env; then
-    echo "⚠️  WARNING: DRY_RUN is disabled - Real bookings will be made!"
-    echo ""
-    read -p "   Continue with real bookings? (yes/no): " confirm
-    if [ "$confirm" != "yes" ]; then
-        echo "❌ Aborted"
-        exit 1
-    fi
+    echo "⚠️  DRY_RUN is DISABLED - Real bookings will be made!"
 else
-    echo "ℹ️  DRY_RUN is enabled - No real bookings will be made"
-    echo "   To enable real bookings, edit .env and set: DRY_RUN=false"
-    echo ""
+    echo "ℹ️  DRY_RUN is ENABLED - No real bookings (test mode)"
 fi
+echo ""
 
 echo "🚀 Starting Sportivity Auto-Booking System..."
 echo ""

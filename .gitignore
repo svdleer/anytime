@@ -4,9 +4,15 @@
 venv/
 ENV/
 
+# Logs
+*.log
+
 # Token storage
 token.enc
 .token_key
+
+# Process ID
+sportivity.pid
 
 # Logs
 *.log
