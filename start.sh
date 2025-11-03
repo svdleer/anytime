@@ -42,6 +42,13 @@ echo ""
 echo "✅ All tests passed!"
 echo ""
 
+# Activate venv if it exists
+VENV_PATH="/home/httpd/vhosts/sportivity.useless.nl/httpdocs/venv"
+if [ -d "$VENV_PATH" ] && [ -f "$VENV_PATH/bin/activate" ]; then
+    echo "Activating virtual environment..."
+    source "$VENV_PATH/bin/activate"
+fi
+
 # Check DRY_RUN status and display info (non-interactive)
 if grep -q "DRY_RUN=false" .env; then
     echo "⚠️  DRY_RUN is DISABLED - Real bookings will be made!"

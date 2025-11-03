@@ -6,8 +6,8 @@ After=network.target
 Type=simple
 User=sportivity
 WorkingDirectory=/home/sportivity/anytime
-Environment="PATH=/usr/local/bin:/usr/bin:/bin"
-ExecStart=/usr/bin/python3 /home/sportivity/anytime/main.py
+Environment="PATH=/home/httpd/vhosts/sportivity.useless.nl/httpdocs/venv/bin:/usr/local/bin:/usr/bin:/bin"
+ExecStart=/home/httpd/vhosts/sportivity.useless.nl/httpdocs/venv/bin/python3 /home/sportivity/anytime/main.py
 Restart=always
 RestartSec=10
 StandardOutput=append:/home/sportivity/anytime/anytime_booking.log

@@ -32,9 +32,20 @@ else
 fi
 echo ""
 
+# Activate venv if it exists
+VENV_PATH="/home/httpd/vhosts/sportivity.useless.nl/httpdocs/venv"
+if [ -d "$VENV_PATH" ] && [ -f "$VENV_PATH/bin/activate" ]; then
+    echo "Activating virtual environment..."
+    source "$VENV_PATH/bin/activate"
+    PYTHON_CMD="python3"
+else
+    echo "No venv found, using system python3..."
+    PYTHON_CMD="python3"
+fi
+
 # Start in background
 echo "🚀 Starting in background..."
-nohup python3 main.py >> anytime_booking.log 2>&1 &
+nohup $PYTHON_CMD main.py >> anytime_booking.log 2>&1 &
 PID=$!
 echo $PID > sportivity.pid
 
