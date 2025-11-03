@@ -85,20 +85,21 @@ class BookingScheduler:
         """
         from dateutil import parser
         
-        # Parse UTC start time
-        utc_start = lesson_data.get('UTCStartTime')
-        utc_end = lesson_data.get('UTCEndTime')
+        # Use local time (LessonStartTime) for lesson scheduling
+        # This ensures times match user's expectations (09:30, 10:30, etc.)
+        local_start = lesson_data.get('LessonStartTime')
+        local_end = lesson_data.get('LessonEndTime')
         
-        if utc_start:
-            start_time = parser.isoparse(utc_start)
+        if local_start:
+            start_time = parser.parse(local_start)
         else:
-            # Fallback to local time
-            start_time = parser.parse(lesson_data.get('LessonStartTime'))
+            # Fallback to UTC
+            start_time = parser.isoparse(lesson_data.get('UTCStartTime'))
         
-        if utc_end:
-            end_time = parser.isoparse(utc_end)
+        if local_end:
+            end_time = parser.parse(local_end)
         else:
-            end_time = parser.parse(lesson_data.get('LessonEndTime'))
+            end_time = parser.isoparse(lesson_data.get('UTCEndTime'))
         
         duration = int((end_time - start_time).total_seconds() / 60)
         
