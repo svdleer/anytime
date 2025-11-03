@@ -132,13 +132,11 @@ class BookingScheduler:
         
         for lesson_data in lessons:
             try:
-                # Skip if already booked (but allow re-booking of cancelled lessons)
+                # Skip if already booked or cancelled by user
                 booking_status = lesson_data.get('BookingStatus')
-                if booking_status == 'Gereserveerd':
-                    logger.debug(f"Skipping already booked lesson: {lesson_data.get('Description')} at {lesson_data.get('LessonStartTime')}")
+                if booking_status:
+                    logger.debug(f"Skipping lesson with status '{booking_status}': {lesson_data.get('Description')} at {lesson_data.get('LessonStartTime')}")
                     continue
-                elif booking_status == 'Afgemeld_door_klant':
-                    logger.info(f"Found cancelled lesson to re-book: {lesson_data.get('Description')} at {lesson_data.get('LessonStartTime')}")
                 
                 lesson = self.parse_lesson(lesson_data)
                 
