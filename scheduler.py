@@ -132,10 +132,13 @@ class BookingScheduler:
         
         for lesson_data in lessons:
             try:
-                # Skip if already booked (BookingStatus present)
-                if lesson_data.get('BookingStatus'):
+                # Skip if already booked (but allow re-booking of cancelled lessons)
+                booking_status = lesson_data.get('BookingStatus')
+                if booking_status == 'Gereserveerd':
                     logger.debug(f"Skipping already booked lesson: {lesson_data.get('Description')} at {lesson_data.get('LessonStartTime')}")
                     continue
+                elif booking_status == 'Afgemeld_door_klant':
+                    logger.info(f"Found cancelled lesson to re-book: {lesson_data.get('Description')} at {lesson_data.get('LessonStartTime')}")
                 
                 lesson = self.parse_lesson(lesson_data)
                 
@@ -148,8 +151,16 @@ class BookingScheduler:
                     continue
                 
                 # Check if the lesson matches our schedule (day and time)
-                day_of_week = lesson.start_time.weekday()  # 0=Monday, 1=Tuesday, etc.
-                lesson_time = lesson.start_time.strftime('%H:%M')
+                # Use local time from LessonStartTime for comparison (not UTC)
+                local_start = lesson_data.get('LessonStartTime')
+                if local_start:
+                    from dateutil import parser
+                    local_time = parser.parse(local_start)
+                    day_of_week = local_time.weekday()
+                    lesson_time = local_time.strftime('%H:%M')
+                else:
+                    day_of_week = lesson.start_time.weekday()
+                    lesson_time = lesson.start_time.strftime('%H:%M')
                 
                 if day_of_week in Config.LESSON_SCHEDULE:
                     # Check if this lesson matches the schedule for this day
