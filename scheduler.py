@@ -166,9 +166,7 @@ class BookingScheduler:
                     if matches_schedule:
                         target_lessons.append(lesson)
                         logger.debug(f"Target lesson found: {lesson.name} on {lesson.start_time}")
-                else:
-                    # If specific schedule not defined, include all matching lesson types
-                    target_lessons.append(lesson)
+                # Only book lessons that are explicitly in LESSON_SCHEDULE (day + time + type must match)
                         
             except Exception as e:
                 logger.error(f"Error parsing lesson: {e}")
